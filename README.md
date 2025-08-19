@@ -168,7 +168,6 @@ space-dino-piano/
 │   └── space-dino-piano.js   # Main game code
 ├── dist/                     # Built game files
 ├── package.json              # Project configuration
-├── tsconfig.json             # TypeScript configuration
 ├── setup.sh                  # Setup script
 ├── play.sh                   # Quick play script
 └── README.md                 # This file
