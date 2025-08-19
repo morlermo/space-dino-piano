@@ -166,7 +166,6 @@ Connect a USB MIDI keyboard for a more realistic piano experience! (Coming in v3
 space-dino-piano/
 ├── src/
 │   └── space-dino-piano.js   # Main game code
-├── dist/                     # Built game files
 ├── package.json              # Project configuration
 ├── setup.sh                  # Setup script
 ├── play.sh                   # Quick play script
