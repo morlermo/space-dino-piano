@@ -22,29 +22,28 @@ Join Rex Rhythmo and Trixie Treble on an epic musical adventure through space! L
 
 ## 🚀 Quick Start (Super Easy!)
 
-### For macOS/Linux Users:
+### For macOS/Linux Users
 
 1. **Download the game**
+
    ```bash
    git clone https://github.com/yourusername/space-dino-piano.git
    cd space-dino-piano
    ```
 
 2. **Run the setup** (only needed once)
+
    ```bash
    bash setup.sh
    ```
 
 3. **Play the game!**
-   ```bash
-   ./play.sh
-   ```
-   Or:
+
    ```bash
    npm start
    ```
 
-### For Windows Users:
+### For Windows Users
 
 1. **Download the game**
    - Click the green "Code" button above
@@ -59,12 +58,14 @@ Join Rex Rhythmo and Trixie Treble on an epic musical adventure through space! L
    - Open Command Prompt or PowerShell
    - Navigate to the game folder
    - Run:
+
    ```cmd
    npm install
    npm run build
    ```
 
 4. **Play!**
+
    ```cmd
    npm start
    ```
@@ -73,7 +74,7 @@ Join Rex Rhythmo and Trixie Treble on an epic musical adventure through space! L
 
 ### Keyboard Controls
 
-```
+```bash
 Piano Keys:
   A S D F G H J K  = White keys (C D E F G A B C)
     W E   T Y U    = Black keys (C# D# F# G# A#)
@@ -94,6 +95,7 @@ Game Controls:
 ## 📚 Lessons
 
 ### Chapter 1: Launch Sequence
+
 - **Lesson 1**: C Major Scale (fuel notes)
 - **Lesson 2**: Twinkle Twinkle Little Star
 - **Lesson 3**: Descending Scale
@@ -104,22 +106,29 @@ Game Controls:
 ## 🔧 Troubleshooting
 
 ### "Command not found" error
+
 Make sure Node.js is installed:
+
 ```bash
 node --version  # Should show v18.0.0 or higher
 ```
 
 ### No sound or beeps only
+
 Install Sox for better audio:
+
 - **macOS**: `brew install sox`
 - **Linux**: `sudo apt-get install sox`
 - **Windows**: Download from [sox.sourceforge.net](http://sox.sourceforge.net)
 
 ### Screen looks weird
+
 Make sure your terminal window is at least 80x24 characters
 
 ### Game won't start
+
 Try rebuilding:
+
 ```bash
 npm install
 npm run build
@@ -136,20 +145,24 @@ npm start
 ## 🛠️ Advanced Options
 
 ### Development Mode
+
 For live reloading during development:
+
 ```bash
 npm run dev
 ```
 
 ### Custom Songs
+
 Add new songs by editing the `LESSONS` array in `src/space-dino-piano.js`
 
 ### MIDI Keyboard Support
+
 Connect a USB MIDI keyboard for a more realistic piano experience! (Coming in v3.0)
 
 ## 📁 Project Structure
 
-```
+```bash
 space-dino-piano/
 ├── src/
 │   └── space-dino-piano.js   # Main game code
@@ -164,6 +177,7 @@ space-dino-piano/
 ## 🤝 Contributing
 
 We welcome contributions! Ideas for new features:
+
 - More dinosaur characters
 - Additional songs and lessons
 - Different space worlds to explore
