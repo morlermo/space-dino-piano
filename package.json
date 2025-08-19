@@ -1,0 +1,38 @@
+{
+  "name": "space-dino-piano",
+  "version": "1.0.0",
+  "description": "A terminal-based piano practice app for kids with space dinosaurs",
+  "main": "src/space-dino-piano.js",
+  "scripts": {
+    "start": "node src/space-dino-piano.js",
+    "install-midi": "npm install @julusian/midi",
+    "build": "echo 'No build needed - running JavaScript directly'"
+  },
+  "dependencies": {
+    "@opentui/core": "^0.1.7",
+    "@opentui/react": "^0.1.7",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.11.0",
+    "chalk": "^4.1.2",
+    "react": "^19.1.1",
+    "typescript": "^5.9.2"
+  },
+  "optionalDependencies": {
+    "@julusian/midi": "^3.1.8"
+  },
+  "keywords": [
+    "piano",
+    "music",
+    "education",
+    "terminal",
+    "tui",
+    "game"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
