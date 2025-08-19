@@ -142,7 +142,7 @@ npm run dev
 ```
 
 ### Custom Songs
-Add new songs by editing the `LESSONS` array in `src/space-dino-piano.tsx`
+Add new songs by editing the `LESSONS` array in `src/space-dino-piano.js`
 
 ### MIDI Keyboard Support
 Connect a USB MIDI keyboard for a more realistic piano experience! (Coming in v3.0)

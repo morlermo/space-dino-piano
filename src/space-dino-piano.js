@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const blessed = require('blessed');
-const { exec, execSync } = require('child_process');
+const { exec, execSync, spawn } = require('child_process');
 const { promisify } = require('util');
 
 const execAsync = promisify(exec);
@@ -80,7 +80,6 @@ class AudioManager {
         : `sox -q -n -d synth ${duration} pluck ${freq} vol 0.3`;
       
       // Execute in background using spawn for better control
-      const { spawn } = require('child_process');
       const child = spawn('sh', ['-c', soxCommand], {
         detached: true,
         stdio: 'ignore'
@@ -139,8 +138,16 @@ const screen = blessed.screen({
   output: process.stdout,
   terminal: 'xterm-256color',
   sendFocus: true,
-  warnings: false
+  warnings: false,
+  // Grab all keys for the screen
+  grabKeys: true,
+  // Don't wait for full sequences
+  fastCSR: true
 });
+
+// Enable keyboard input explicitly
+screen.enableKeys();
+screen.enableInput();
 
 // Set background gradient effect
 screen.style = {
@@ -546,36 +553,68 @@ function nextLesson() {
   updateDisplay();
 }
 
-// Keyboard input - Simple and direct
+// Track key states to prevent repeat
+const keyStates = {};
+
+// Main keyboard handler using keypress event (more reliable)
+screen.on('keypress', function(ch, key) {
+  // Get the actual character or key name
+  const keyChar = ch || (key && key.name);
+  
+  // Exit keys
+  if (keyChar === 'q' || (key && key.name === 'escape') || (key && key.ctrl && key.name === 'c')) {
+    process.exit(0);
+    return;
+  }
+  
+  // Space for story
+  if (key && key.name === 'space') {
+    nextStory();
+    return;
+  }
+  
+  // Enter for lesson
+  if (key && (key.name === 'enter' || key.name === 'return')) {
+    startLesson();
+    return;
+  }
+  
+  // Piano keys - check the character
+  if (ch) {
+    const lowerChar = ch.toLowerCase();
+    
+    // Prevent key repeat
+    const now = Date.now();
+    if (keyStates[lowerChar] && (now - keyStates[lowerChar] < 100)) {
+      return;
+    }
+    keyStates[lowerChar] = now;
+    
+    // Play notes based on character
+    switch(lowerChar) {
+      // White keys
+      case 'a': playNote('C4'); break;
+      case 's': playNote('D4'); break;
+      case 'd': playNote('E4'); break;
+      case 'f': playNote('F4'); break;
+      case 'g': playNote('G4'); break;
+      case 'h': playNote('A4'); break;
+      case 'j': playNote('B4'); break;
+      case 'k': playNote('C5'); break;
+      // Black keys
+      case 'w': playNote('C#4'); break;
+      case 'e': playNote('D#4'); break;
+      case 't': playNote('F#4'); break;
+      case 'y': playNote('G#4'); break;
+      case 'u': playNote('A#4'); break;
+    }
+  }
+});
+
+// Also keep individual key handlers as backup
 screen.key(['q', 'C-c', 'escape'], () => {
   process.exit(0);
 });
-
-screen.key('space', () => {
-  nextStory();
-});
-
-screen.key('enter', () => {
-  startLesson();
-});
-
-// Piano keys - individual key handlers for reliability
-// White keys
-screen.key('a', () => playNote('C4'));
-screen.key('s', () => playNote('D4'));
-screen.key('d', () => playNote('E4'));
-screen.key('f', () => playNote('F4'));
-screen.key('g', () => playNote('G4'));
-screen.key('h', () => playNote('A4'));
-screen.key('j', () => playNote('B4'));
-screen.key('k', () => playNote('C5'));
-
-// Black keys
-screen.key('w', () => playNote('C#4'));
-screen.key('e', () => playNote('D#4'));
-screen.key('t', () => playNote('F#4'));
-screen.key('y', () => playNote('G#4'));
-screen.key('u', () => playNote('A#4'));
 
 // Animation loop
 setInterval(() => {
@@ -619,6 +658,9 @@ async function main() {
     updateDisplay();
   }
 }
+
+// Focus the screen to ensure it receives input
+screen.focusPush(screen);
 
 // Start the game
 screen.render();
